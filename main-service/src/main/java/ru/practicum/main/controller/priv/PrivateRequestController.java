@@ -36,8 +36,8 @@ public class PrivateRequestController {
     public ResponseEntity<RequestDto> cancelRequest(@PathVariable Long userId,
                                                     @PathVariable Long requestId) {
 
-        log.info("Выполнен запрос PATCH/users/{userId}/requests/{requestId}/cancel, где userId= {}, requestId= {}"
-                , userId, requestId);
+        log.info("Выполнен запрос PATCH/users/{userId}/requests/{requestId}/cancel, где userId= {}, requestId= {}",
+                userId, requestId);
         return new ResponseEntity<>(requestService.cancelRequest(userId, requestId), HttpStatus.OK);
     }
 }

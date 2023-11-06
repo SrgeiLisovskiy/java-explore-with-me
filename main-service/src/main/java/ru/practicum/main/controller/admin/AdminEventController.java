@@ -38,8 +38,8 @@ public class AdminEventController {
     @PatchMapping("/{eventId}")
     public ResponseEntity<EventDto> updateEventByAdmin(@Validated @RequestBody UpdateEventDto updateEventDto,
                                                        @PathVariable Long eventId) {
-        log.info("Выполнен запрос PATH/admin/events/{eventId} где updateEventDto= {}, eventId= {}"
-                , updateEventDto, eventId);
+        log.info("Выполнен запрос PATH/admin/events/{eventId} где updateEventDto= {}, eventId= {}",
+                updateEventDto, eventId);
         return new ResponseEntity<>(eventService.updateEventByAdmin(updateEventDto, eventId), HttpStatus.OK);
     }
 

@@ -6,20 +6,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.stats.stats_client.client.StatClient;
 import ru.practicum.stats.dto.Create;
 import ru.practicum.stats.dto.HitDto;
+import ru.practicum.stats.stats_client.client.StatClient;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static ru.practicum.stats.server.utilite.Constant.DATE_FORMAT;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 public class StateController {
     private final StatClient statClient;
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping("/hit")
     public ResponseEntity<Object> saveHit(@Validated({Create.class}) @RequestBody HitDto hitDto) {
