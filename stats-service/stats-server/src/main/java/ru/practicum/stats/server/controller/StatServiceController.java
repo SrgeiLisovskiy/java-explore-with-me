@@ -16,6 +16,9 @@ import java.util.List;
 public class StatServiceController {
     private final StatService statService;
 
+
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     @PostMapping("/hit")
     public HitDto addHit(@RequestBody HitDto hitDto) {
         return statService.addHit(hitDto);
