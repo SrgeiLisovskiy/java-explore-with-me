@@ -32,7 +32,7 @@ public class StatServiceController {
                                      @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                      @RequestParam(required = false) List<String> uris,
                                      @RequestParam(defaultValue = "false") boolean unique) {
-        if (end.isBefore(start) || start.isEqual(end) || start == null) {
+        if (end.isBefore(start)) {
             throw new ValidationException("Дата начала не может быть null или позже завершения");
         }
         return statService.getAllStats(start, end, uris, unique);
