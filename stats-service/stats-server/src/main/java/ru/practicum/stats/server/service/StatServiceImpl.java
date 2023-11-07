@@ -32,7 +32,7 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public List<StatDto> getAllStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        if (start==null){
+        if (start == null) {
             throw new ValidationException("Дата начала не может быть null");
         }
         List<StatDto> stats;

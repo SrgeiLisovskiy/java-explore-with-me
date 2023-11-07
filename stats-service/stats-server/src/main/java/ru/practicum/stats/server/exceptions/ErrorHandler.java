@@ -37,6 +37,7 @@ public class ErrorHandler {
         String stackTrace = sw.toString();
         return new ApiError(status, "Ошибка сервера", e.getMessage(), stackTrace);
     }
+
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleValidationException(ValidationException e, HttpStatus status) {
