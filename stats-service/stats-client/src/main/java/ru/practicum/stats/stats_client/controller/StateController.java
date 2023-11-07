@@ -34,6 +34,7 @@ public class StateController {
                                               @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                               @RequestParam(required = false, name = "uris") List<String> uris,
                                               @RequestParam(required = false, defaultValue = "false") Boolean unique) {
+
         if (end.isBefore(start) || start == null) {
             throw new ValidationException("Дата начала не может быть null или позже завершения");
         }
