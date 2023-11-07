@@ -28,13 +28,13 @@ public class StatServiceController {
     }
 
     @GetMapping("/stats")
-    public List<StatDto> getAllStats(@RequestParam() @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
-                                     @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
-                                     @RequestParam(required = false) List<String> uris,
-                                     @RequestParam(defaultValue = "false") boolean unique) {
+    public ResponseEntity<List<StatDto>> getAllStats(@RequestParam() @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
+                                                     @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
+                                                     @RequestParam(required = false) List<String> uris,
+                                                     @RequestParam(defaultValue = "false") boolean unique) {
         if (end.isBefore(start)) {
             throw new ValidationException("Дата начала не может быть null или позже завершения");
         }
-        return statService.getAllStats(start, end, uris, unique);
+        return new ResponseEntity<>(statService.getAllStats(start, end, uris, unique), HttpStatus.OK);
     }
 }
