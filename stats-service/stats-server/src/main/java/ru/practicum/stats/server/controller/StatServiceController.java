@@ -28,7 +28,7 @@ public class StatServiceController {
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<List<StatDto>> getAllStats(@RequestParam() @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
+    public ResponseEntity<List<StatDto>> getAllStats(@RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
                                                      @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                                      @RequestParam(required = false) List<String> uris,
                                                      @RequestParam(defaultValue = "false") boolean unique) {
