@@ -10,7 +10,6 @@ import ru.practicum.stats.dto.StatDto;
 import ru.practicum.stats.server.service.StatService;
 import ru.practicum.stats.server.utilite.Constant;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class StatServiceController {
     }
 
     @GetMapping("/stats")
-    public List<StatDto> getAllStats(@RequestParam @DateTimeFormat(pattern = Constant.DATE_FORMAT) @NotNull LocalDateTime start,
+    public List<StatDto> getAllStats(@RequestParam @DateTimeFormat(pattern = Constant.DATE_FORMAT) LocalDateTime start,
                                      @RequestParam @DateTimeFormat(pattern = Constant.DATE_FORMAT) LocalDateTime end,
                                      @RequestParam(required = false) List<String> uris,
                                      @RequestParam(defaultValue = "false") boolean unique) {

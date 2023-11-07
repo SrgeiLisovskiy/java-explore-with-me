@@ -37,6 +37,16 @@ public class ErrorHandler {
         String stackTrace = sw.toString();
         return new ApiError(status, "Ошибка сервера", e.getMessage(), stackTrace);
     }
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleValidationException(ValidationException e, HttpStatus status) {
+        log.debug("Получен статус 400 Bad request {}", e.getMessage(), e);
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        String stackTrace = sw.toString();
+        return new ApiError(status, "Ошибка введенных данных", e.getMessage(), stackTrace);
+    }
 
 
 }
