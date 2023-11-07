@@ -40,7 +40,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError handleValidationException(ValidationException e, HttpStatus status) {
+    public ApiError handleValidationException(final ValidationException e, HttpStatus status) {
         log.debug("Получен статус 400 Bad request {}", e.getMessage(), e);
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
