@@ -33,7 +33,7 @@ public class StatServiceController {
                                                      @RequestParam(required = false) List<String> uris,
                                                      @RequestParam(defaultValue = "false") boolean unique) {
         if (end.isBefore(start)) {
-            throw new ValidationException("Дата начала не может быть null или позже завершения");
+            throw new ValidationException("Дата начала не может быть позже завершения");
         }
         return new ResponseEntity<>(statService.getAllStats(start, end, uris, unique), HttpStatus.OK);
     }
