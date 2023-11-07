@@ -3,6 +3,7 @@ package ru.practicum.main.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.main.dto.CategoryDto;
 import ru.practicum.main.dto.NewCategoryDto;
 import ru.practicum.main.exceptions.ConflictException;
@@ -25,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final EventRepository eventRepository;
 
     @Override
+    @Transactional
     public CategoryDto createCategory(NewCategoryDto categoryDto) {
         if (categoryRepository.existsByName(categoryDto.getName())) {
             throw new ConflictException("Категория с введенным именем уже существует");
@@ -34,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto updateCategory(CategoryDto categoryDto, Long catId) {
         Category category = checkExistence(catId);
         if (categoryRepository.findByNameAndIdNot(categoryDto.getName(), catId) != null) {
@@ -44,6 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void deleteCategory(Long catId) {
         List<Event> events = eventRepository.findByCategory(checkExistence(catId));
         if (!events.isEmpty()) {

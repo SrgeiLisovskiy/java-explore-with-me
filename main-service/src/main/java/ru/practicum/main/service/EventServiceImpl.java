@@ -182,6 +182,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public EventDto updateEventByAdmin(UpdateEventDto updateEventDto, Long eventId) {
         Event event = checkExistenceEvent(eventId);
         if (updateEventDto.getEventDate() != null &&

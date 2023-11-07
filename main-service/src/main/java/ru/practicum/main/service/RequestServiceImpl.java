@@ -60,6 +60,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional
     public RequestDto cancelRequest(Long userId, Long requestId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException("Пользователь с ID = " + userId + "  не найден"));

@@ -2,6 +2,8 @@ package ru.practicum.stats.server.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.stats.dto.HitDto;
 import ru.practicum.stats.dto.StatDto;
@@ -20,8 +22,9 @@ public class StatServiceController {
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping("/hit")
-    public HitDto addHit(@RequestBody HitDto hitDto) {
-        return statService.addHit(hitDto);
+
+    public ResponseEntity<HitDto> addHit(@RequestBody HitDto hitDto) {
+        return new ResponseEntity<>(statService.addHit(hitDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/stats")
