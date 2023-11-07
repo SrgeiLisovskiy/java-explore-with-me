@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.stats.dto.HitDto;
 import ru.practicum.stats.dto.StatDto;
-import ru.practicum.stats.server.exceptions.ValidationException;
 import ru.practicum.stats.server.model.Stat;
 import ru.practicum.stats.server.model.mapper.StatMapper;
 import ru.practicum.stats.server.repository.StatRepository;
@@ -32,9 +31,6 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public List<StatDto> getAllStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        if (end.isBefore(start) || start == null) {
-            throw new ValidationException("Дата начала не может быть null или позже завершения");
-        }
         List<StatDto> stats;
         if (unique) {
             if (uris == null || uris.isEmpty()) {

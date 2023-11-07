@@ -4,11 +4,9 @@ package ru.practicum.main.exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -16,8 +14,7 @@ import java.io.StringWriter;
 @RestControllerAdvice
 @Slf4j
 public class ErrorHandler {
-    @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class,
-            MissingServletRequestParameterException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleMethodArgumentNotValidationException(final MethodArgumentNotValidException e) {
         log.debug("Получен статус 400 Bad request {}", e.getMessage(), e);

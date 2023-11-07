@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.stats.dto.Create;
 import ru.practicum.stats.dto.HitDto;
+import ru.practicum.stats.server.exceptions.ValidationException;
 import ru.practicum.stats.stats_client.client.StatClient;
 
 import java.time.LocalDateTime;
@@ -33,6 +34,9 @@ public class StateController {
                                               @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                               @RequestParam(required = false, name = "uris") List<String> uris,
                                               @RequestParam(required = false, defaultValue = "false") Boolean unique) {
+        if (end.isBefore(start) || start == null) {
+            throw new ValidationException("Дата начала не может быть null или позже завершения");
+        }
         log.debug("Получен запрос: GET/stats , где start=" + start + " end time=" + end + " uris=" + uris +
                 " unique=" + unique);
         return statClient.getAllStats(start, end, uris, unique);
