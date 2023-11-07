@@ -1,18 +1,17 @@
 package ru.practicum.stats.server.exceptions;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 public class ApiError {
-    private HttpStatus status;
+    private int status;
     private String error;
 
     private String description;
 
     private String stackTrace;
 
-    public ApiError(HttpStatus status, String error, String description, String stackTrace) {
+    public ApiError(int status, String error, String description, String stackTrace) {
         this.status = status;
         this.error = error;
         this.description = description;
