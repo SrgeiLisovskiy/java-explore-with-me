@@ -32,8 +32,8 @@ public class StatServiceImpl implements StatService {
 
     @Override
     public List<StatDto> getAllStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        if (start == null) {
-            throw new ValidationException("Дата начала не может быть null");
+        if (end.isBefore(start) || start == null) {
+            throw new ValidationException("Дата начала не может быть null или позже завершения");
         }
         List<StatDto> stats;
         if (unique) {
