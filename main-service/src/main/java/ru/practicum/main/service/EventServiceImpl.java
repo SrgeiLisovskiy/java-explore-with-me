@@ -69,7 +69,9 @@ public class EventServiceImpl implements EventService {
         if (!event.getInitiator().equals(user)) {
             throw new ConflictException("Нельзя создать запрос на свое событие");
         }
-        return EventMapper.toEventDto(event);
+        EventDto eventDto = EventMapper.toEventDto(event);
+        eventDto.setViews(statClient.getView(eventId));
+        return eventDto;
     }
 
     @Override
@@ -274,11 +276,7 @@ public class EventServiceImpl implements EventService {
         if (!EventState.PUBLISHED.equals(event.getState())) {
             throw new NotFoundException("Событие с id = " + eventId + " не опубликовано");
         }
-        if (event.getViews() == null) {
-            event.setViews(1L);
-        } else {
-            event.setViews(event.getViews() + 1);
-        }
+        EventDto eventDto = EventMapper.toEventDto(event);
         HitDto hitDto = HitDto.builder()
                 .app("main-service")
                 .uri(uri)
@@ -286,7 +284,8 @@ public class EventServiceImpl implements EventService {
                 .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT)))
                 .build();
         statClient.addHit(hitDto);
-        return EventMapper.toEventDto(event);
+        eventDto.setViews(statClient.getView(eventId));
+        return eventDto;
     }
 
     private void checkConflictRequest(Event event, User user) {

@@ -36,4 +36,9 @@ public interface StatRepository extends JpaRepository<Stat, Long> {
             "GROUP BY s.app, s.uri " +
             "ORDER BY COUNT (s.uri) DESC")
     List<StatDto> findAllHitsWithUris(List<String> uris, LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT COUNT(DISTINCT s.ip) " +
+            "FROM Stat AS s " +
+            "WHERE s.uri = ?1")
+    Long countDistinctByUri(String s);
 }

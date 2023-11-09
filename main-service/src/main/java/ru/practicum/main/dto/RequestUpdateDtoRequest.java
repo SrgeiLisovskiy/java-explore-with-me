@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RequestUpdateDtoRequest {
 
-    List<Long> requestIds;
+    private List<Long> requestIds;
 
-    RequestStatus status;
+    private RequestStatus status;
 }

@@ -16,38 +16,38 @@ import static ru.practicum.main.utilite.Constant.DATE_FORMAT;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventDto {
-    String annotation;
+    private String annotation;
 
-    CategoryDto category;
+    private CategoryDto category;
 
-    Integer confirmedRequests;
-
-    @JsonFormat(pattern = DATE_FORMAT)
-    LocalDateTime createdOn;
-
-    String description;
+    private Integer confirmedRequests;
 
     @JsonFormat(pattern = DATE_FORMAT)
-    LocalDateTime eventDate;
+    private LocalDateTime createdOn;
 
-    Long id;
-
-    UserShortDto initiator;
-
-    LocationDto location;
-
-    Boolean paid;
-
-    Long participantLimit;
+    private String description;
 
     @JsonFormat(pattern = DATE_FORMAT)
-    LocalDateTime publishedOn;
+    private LocalDateTime eventDate;
 
-    Boolean requestModeration;
+    private Long id;
 
-    EventState state;
+    private UserShortDto initiator;
 
-    String title;
+    private LocationDto location;
 
-    Long views;
+    private Boolean paid;
+
+    private Long participantLimit;
+
+    @JsonFormat(pattern = DATE_FORMAT)
+    private LocalDateTime publishedOn;
+
+    private Boolean requestModeration;
+
+    private EventState state;
+
+    private String title;
+
+    private Long views;
 }

@@ -37,4 +37,9 @@ public class StatServiceController {
         }
         return new ResponseEntity<>(statService.getAllStats(start, end, uris, unique), HttpStatus.OK);
     }
+
+    @GetMapping("/view/{eventId}")
+    public ResponseEntity<Object> getView(@PathVariable Long eventId) {
+        return new ResponseEntity<>(statService.getView(eventId), HttpStatus.OK);
+    }
 }

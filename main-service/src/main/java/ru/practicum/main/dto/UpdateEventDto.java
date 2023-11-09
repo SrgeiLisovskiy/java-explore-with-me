@@ -20,27 +20,27 @@ import static ru.practicum.main.utilite.Constant.DATE_FORMAT;
 @NoArgsConstructor
 public class UpdateEventDto {
     @Size(min = 20, max = 2000)
-    String annotation;
+    private String annotation;
     @Positive
-    Long category;
+    private Long category;
 
     @Size(min = 20, max = 7000)
-    String description;
+    private String description;
 
     @FutureOrPresent(message = "Дата события не может быть в прошлом")
     @JsonFormat(pattern = DATE_FORMAT)
-    LocalDateTime eventDate;
+    private LocalDateTime eventDate;
 
-    LocationDto location;
+    private LocationDto location;
 
-    Boolean paid;
+    private Boolean paid;
     @PositiveOrZero
-    Long participantLimit;
+    private Long participantLimit;
 
-    Boolean requestModeration;
+    private Boolean requestModeration;
 
-    String stateAction;
+    private String stateAction;
 
     @Size(min = 3, max = 120)
-    String title;
+    private String title;
 }

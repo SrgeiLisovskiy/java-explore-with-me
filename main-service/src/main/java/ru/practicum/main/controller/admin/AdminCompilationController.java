@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.main.dto.CompilationDto;
 import ru.practicum.main.dto.NewCompilationDto;
 import ru.practicum.main.dto.UpdateCompilationDto;
 import ru.practicum.main.service.CompilationService;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,7 +21,7 @@ public class AdminCompilationController {
 
     @PostMapping
     public ResponseEntity<CompilationDto> creatCompilation(
-            @Validated @RequestBody NewCompilationDto newCompilationDto) {
+            @Valid @RequestBody NewCompilationDto newCompilationDto) {
         log.info("Выполнен запрос POST/admin/compilations: {}", newCompilationDto);
         return new ResponseEntity<>(compilationService.createCompilation(newCompilationDto), HttpStatus.CREATED);
     }
@@ -34,7 +35,7 @@ public class AdminCompilationController {
 
     @PatchMapping("/{compId}")
     public ResponseEntity<CompilationDto> updateCompilation(
-            @Validated @RequestBody UpdateCompilationDto updateCompilationDto, @PathVariable Long compId) {
+            @Valid @RequestBody UpdateCompilationDto updateCompilationDto, @PathVariable Long compId) {
         log.info("Выполнен запрос PATH/admin/compilations/{compId}: {}", compId);
         return new ResponseEntity<>(compilationService.updateCompilation(updateCompilationDto, compId), HttpStatus.OK);
     }

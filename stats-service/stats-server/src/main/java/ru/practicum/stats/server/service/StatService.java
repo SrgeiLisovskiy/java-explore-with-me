@@ -10,4 +10,6 @@ public interface StatService {
     HitDto addHit(HitDto hitDto);
 
     List<StatDto> getAllStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique);
+
+    Long getView(Long eventId);
 }

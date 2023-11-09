@@ -13,6 +13,7 @@ import ru.practicum.stats.dto.HitDto;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 @Component
@@ -44,6 +45,14 @@ public class StatClient extends BaseClient {
                 "uris", String.join(",", uris),
                 "unique", unique);
         return get("/stats?start={start}&end={end}&unique={unique}&uris={uris}", parameters);
+    }
+
+    public Long getView(Long eventId) {
+        Map<String, Object> parameters = Map.of(
+                "eventId", eventId
+        );
+        String view = (Objects.requireNonNullElse(get("/view/{eventId}", parameters).getBody(), 0L)).toString();
+        return Long.parseLong(view);
     }
 
 

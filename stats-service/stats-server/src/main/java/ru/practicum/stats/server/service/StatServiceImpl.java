@@ -48,4 +48,10 @@ public class StatServiceImpl implements StatService {
         log.info("Получена статистика :{}", stats);
         return stats;
     }
+
+    @Override
+    public Long getView(Long eventId) {
+        return statRepository.countDistinctByUri("/events/" + eventId);
+    }
+
 }
