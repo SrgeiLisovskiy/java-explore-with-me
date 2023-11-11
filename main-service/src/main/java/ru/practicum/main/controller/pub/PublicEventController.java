@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.main.dto.EventDto;
+import ru.practicum.main.dto.EventShortDto;
 import ru.practicum.main.service.EventService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class PublicEventController {
     private final EventService eventService;
 
     @GetMapping
-    public ResponseEntity<List<EventDto>> getEventsByPublic(
+    public ResponseEntity<List<EventShortDto>> getEventsByPublic(
             @RequestParam(required = false, name = "text") String text,
             @RequestParam(required = false, name = "categories") List<Long> categories,
             @RequestParam(required = false, name = "paid") Boolean paid,

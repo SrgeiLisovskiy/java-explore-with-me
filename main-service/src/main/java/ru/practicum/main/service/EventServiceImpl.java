@@ -42,14 +42,22 @@ public class EventServiceImpl implements EventService {
     private final RequestRepository requestRepository;
     private final CheckValidationService checkValidationService;
     private final StatClient statClient;
+    private final CommentRepository commentRepository;
 
 
     @Override
     public List<EventShortDto> getEventsByUserId(Long userId, Integer from, Integer size) {
         checkExistenceUser(userId);
         PageRequest pageRequest = checkValidationService.checkPageSize(from, size);
-        return eventRepository.findAll(pageRequest).stream()
-                .map(EventMapper::toEventShortDto).collect(Collectors.toList());
+        List<Event> eventsList = eventRepository.findAll(pageRequest).toList();
+        List<EventShortDto> result = new ArrayList<>();
+        for (Event event : eventsList) {
+            Long comments = commentRepository.countCommentByEvent_Id(event.getId());
+            EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
+            eventShortDto.setComments(comments);
+            result.add(eventShortDto);
+        }
+        return result;
     }
 
     @Override
@@ -176,6 +184,7 @@ public class EventServiceImpl implements EventService {
         List<EventDto> result = new ArrayList<>();
         for (Event event : events) {
             int count = requestRepository.countByEventIdAndStatus(event.getId(), RequestStatus.CONFIRMED);
+
             EventDto eventDto = EventMapper.toEventDto(event);
             eventDto.setConfirmedRequests(count);
             result.add(eventDto);
@@ -213,9 +222,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDto> getEventsByPublic(String text, List<Long> categories, Boolean paid, String rangeStart,
-                                            String rangeEnd, Boolean onlyAvailable, String sort, Integer from, Integer size,
-                                            String uri, String ip) {
+    public List<EventShortDto> getEventsByPublic(String text, List<Long> categories, Boolean paid, String rangeStart,
+                                                 String rangeEnd, Boolean onlyAvailable, String sort, Integer from, Integer size,
+                                                 String uri, String ip) {
         checkEventDate(rangeStart, rangeEnd);
         PageRequest pageRequest = checkValidationService.checkPageSize(from, size);
         HitDto hitDto = HitDto.builder()
@@ -259,11 +268,13 @@ public class EventServiceImpl implements EventService {
                 criteriaBuilder.equal(root.get("state"), EventState.PUBLISHED));
 
         List<Event> events = eventRepository.findAll(specification, pageRequest).getContent();
-        List<EventDto> result = new ArrayList<>();
+        List<EventShortDto> result = new ArrayList<>();
         for (Event event : events) {
             int count = requestRepository.countByEventIdAndStatus(event.getId(), RequestStatus.CONFIRMED);
-            EventDto eventDto = EventMapper.toEventDto(event);
+            EventShortDto eventDto = EventMapper.toEventShortDto(event);
             eventDto.setConfirmedRequests(count);
+            Long countComments = commentRepository.countCommentByEvent_Id(event.getId());
+            eventDto.setComments(countComments);
             result.add(eventDto);
         }
 
