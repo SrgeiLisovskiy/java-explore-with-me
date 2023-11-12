@@ -24,7 +24,7 @@ public interface EventService {
 
     EventDto updateEventByAdmin(UpdateEventDto updateEventDto, Long eventId);
 
-    List<EventDto> getEventsByPublic(String text, List<Long> categories, Boolean paid, String rangeStart,
+    List<EventShortDto> getEventsByPublic(String text, List<Long> categories, Boolean paid, String rangeStart,
                                      String rangeEnd, Boolean onlyAvailable, String sort, Integer from, Integer size, String uri, String ip);
 
     EventDto getEventById(Long id, String uri, String ip);
